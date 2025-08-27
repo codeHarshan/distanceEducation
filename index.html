@@ -17,8 +17,8 @@
     /* Print Styling */
     @media print {
       @page { 
-        size: A4;           /* Force A4 size */
-        margin: 10mm;       /* Small page margin */
+        size: A4;
+        margin: 10mm;
       }
       body { margin: 0; }
       input, select { 
@@ -30,16 +30,14 @@
       input[type="file"], button { display: none !important; }
       .no-print { display: none !important; }
       select {
-    -webkit-appearance: none;  /* Chrome, Safari, Edge */
-    -moz-appearance: none;     /* Firefox */
-    appearance: none;          /* Standard */
-    border: none;              /* Remove border if needed */
-    background: transparent;   /* Remove background arrow */
-    padding-right: 0;          /* Remove extra padding */
-  }
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border: none;
+        background: transparent;
+        padding-right: 0;
+      }
     }
- 
-
   </style>
 </head>
 <body>
@@ -54,7 +52,7 @@
   <!-- Extra Row for Mode + Reg No -->
   <table>
     <tr>
-      <td class="section-title" colspan="3">Mode of Education:  <span style="font-weight: lighter;">Distance Education</span></td>
+      <td class="section-title" colspan="3">Mode of Education:<span style="font-weight: lighter;">Distance Education</span></td>
       <td class="section-title">Registration No</td>
       <td><input type="text"></td>
       <td class="section-title">Date</td>
@@ -102,10 +100,8 @@
     <tr><td>Identification Mark 1</td><td><input type="text"></td><td>Identification Mark 2</td><td><input type="text"></td></tr>
     <tr><td>Marital Status</td><td><input type="text"></td><td>Application Modified</td><td>
       <select><option>Yes</option><option>No</option></select></td></tr>
-      
   </table>
   
-
   <!-- Present Address -->
   <table>
     <tr><td class="section-title" colspan="4">Present Address</td></tr>
@@ -114,32 +110,19 @@
     <tr><td>Village/City/Town</td><td><input type="text"></td><td>Pincode</td><td><input type="text"></td></tr>
   </table>
   <table class="no-print"><td>
-<input type="checkbox" id="sameAddress" onchange="copyAddress()"> 
-        <p style="text-align: center;" for="sameAddress">Same as Present Address</p>
-  </td>
-    
-  </table>
+    <input type="checkbox" id="sameAddress" onchange="copyAddress()"> 
+    <p style="text-align: center;" for="sameAddress">Same as Present Address</p>
+  </td></table>
+
   <!-- Permanent Address -->
   <table>
-    <tr>
-      <td class="section-title" colspan="4">
-        Permanent Address 
-        
-      </td>
-    </tr>
-    <tr>
-      <td>Address</td><td colspan="3"><input type="text" id="perm_address"></td>
-    </tr>
-    <tr>
-      <td>State/UT</td><td><input type="text" id="perm_state"></td>
-      <td>District</td><td><input type="text" id="perm_district"></td>
-    </tr>
-    <tr>
-      <td>Village/City/Town</td><td><input type="text" id="perm_city"></td>
-      <td>Pincode</td><td><input type="text" id="perm_pincode"></td>
-    </tr>
+    <tr><td class="section-title" colspan="4">Permanent Address</td></tr>
+    <tr><td>Address</td><td colspan="3"><input type="text" id="perm_address"></td></tr>
+    <tr><td>State/UT</td><td><input type="text" id="perm_state"></td>
+        <td>District</td><td><input type="text" id="perm_district"></td></tr>
+    <tr><td>Village/City/Town</td><td><input type="text" id="perm_city"></td>
+        <td>Pincode</td><td><input type="text" id="perm_pincode"></td></tr>
   </table>
-
 
   <!-- Qualification Details -->
   <table id="qualificationTable">
@@ -156,7 +139,10 @@
       <td><input type="text"></td>
     </tr>
   </table>
-  <button type="button" onclick="addRow()">+ Add More Qualification</button>
+  <div style="margin-top: 10px;">
+    <button type="button" onclick="addRow()">+ Add More Qualification</button>
+    <button type="button" onclick="removeRow()">- Remove Last Qualification</button>
+  </div>
 
   <!-- Community Details -->
   <table>
@@ -191,7 +177,6 @@
   <!-- Signature Section -->
   <table style="width:100%; border:0; margin-top:30px;">
     <tr>
-      <!-- Applicant Signature Upload -->
       <td style="text-align:right; width:50%; border:0;">
         <div id="signBox" style="border:1px solid #000; width:200px; height:80px; 
              margin-left:auto; display:flex; align-items:center; justify-content:center; background:#f9f9f9;">
@@ -203,12 +188,9 @@
         <input type="file" accept="image/*" style="width:20%" onchange="previewSign(event)">
         <p><b>Signature of Applicant</b></p>
       </td>
-
-     
     </tr>
   </table>
   <table>
-     <!-- Admin Officer Signature Placeholder -->
       <td style="text-align:right; width:50%; border:0;">
         <br>
         <p><b>Signature of ADMIN OFFICER (CDOE)</b></p>
@@ -230,6 +212,16 @@
       input.type = "text";
       input.style.width = "95%";
       cell.appendChild(input);
+    }
+  }
+
+  function removeRow() {
+    let table = document.getElementById("qualificationTable");
+    let rowCount = table.rows.length;
+    if (rowCount > 2) {
+      table.deleteRow(rowCount - 1);
+    } else {
+      alert("Cannot remove the first qualification row.");
     }
   }
 
@@ -258,17 +250,16 @@
       reader.readAsDataURL(file);
     }
   }
-    function copyAddress() {
-    let checked = document.getElementById("sameAddress").checked;
 
+  function copyAddress() {
+    let checked = document.getElementById("sameAddress").checked;
     let present = {
-      address: document.querySelector("input[id^='present_address']") || document.querySelectorAll("table")[3].rows[1].cells[1].querySelector("input"),
+      address: document.querySelectorAll("table")[3].rows[1].cells[1].querySelector("input"),
       state: document.querySelectorAll("table")[3].rows[2].cells[1].querySelector("input"),
       district: document.querySelectorAll("table")[3].rows[2].cells[3].querySelector("input"),
       city: document.querySelectorAll("table")[3].rows[3].cells[1].querySelector("input"),
       pincode: document.querySelectorAll("table")[3].rows[3].cells[3].querySelector("input")
     };
-
     let permanent = {
       address: document.getElementById("perm_address"),
       state: document.getElementById("perm_state"),
@@ -276,22 +267,13 @@
       city: document.getElementById("perm_city"),
       pincode: document.getElementById("perm_pincode")
     };
-
     if (checked) {
-      permanent.address.value = present.address.value;
-      permanent.state.value = present.state.value;
-      permanent.district.value = present.district.value;
-      permanent.city.value = present.city.value;
-      permanent.pincode.value = present.pincode.value;
-
-      // make read-only
+      for (let key in permanent) permanent[key].value = present[key].value;
       for (let key in permanent) permanent[key].setAttribute("readonly", true);
     } else {
-      // make editable again
       for (let key in permanent) permanent[key].removeAttribute("readonly");
     }
   }
-
 </script>
 
 </body>
