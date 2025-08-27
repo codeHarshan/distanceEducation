@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Application Form</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    table { border-collapse: collapse; width: 100%; margin-bottom: 20px; page-break-inside: avoid; }
+    td, th { border: 1px solid #000; padding: 8px; vertical-align: top; }
+    h2 { text-align: center; margin-bottom: 5px; }
+    .section-title { background-color: #f2f2f2; font-weight: bold; text-align: left; }
+    input, select { width: 95%; padding: 5px; border: 1px solid #000; }
+    button { padding: 7px 12px; margin-top: 10px; cursor: pointer; }
+    .textContainer { width:100%; text-align: center; }
+    .textContainer h2{ font-size: 24px; }
+
+    /* Print Styling */
+    @media print {
+      @page { 
+        size: A4;           /* Force A4 size */
+        margin: 10mm;       /* Small page margin */
+      }
+      body { margin: 0; }
+      input, select { 
+        border: none !important; 
+        padding: 0; 
+        background: transparent; 
+        width: auto; 
+      }
+      input[type="file"], button { display: none !important; }
+      .no-print { display: none !important; }
+      select {
+    -webkit-appearance: none;  /* Chrome, Safari, Edge */
+    -moz-appearance: none;     /* Firefox */
+    appearance: none;          /* Standard */
+    border: none;              /* Remove border if needed */
+    background: transparent;   /* Remove background arrow */
+    padding-right: 0;          /* Remove extra padding */
+  }
+    }
+ 
+
+  </style>
+</head>
+<body>
+
+<div id="formArea">
+
+  <!-- Banner Header -->
+  <div style="text-align:center; margin-bottom:15px; width: 100%;">
+    <img src="Screenshot 2025-08-27 135756.png" alt="University Header" style="width:102%; max-width:1000px; margin-left: -10px;">
+  </div>
+
+  <!-- Extra Row for Mode + Reg No -->
+  <table>
+    <tr>
+      <td class="section-title" colspan="3">Mode of Education: Distance Education</td>
+      <td class="section-title">Registration No</td>
+      <td><input type="text"></td>
+      <td class="section-title">Date</td>
+      <td><input type="date"></td>
+    </tr>
+  </table>
+
+  <!-- Course Details -->
+  <table>
+    <tr><td class="section-title" colspan="4">Course Details</td></tr>
+    <tr>
+      <td>Name of the Course</td><td><input type="text"></td>
+      <td>Medium</td><td><input type="text"></td>
+    </tr>
+    <tr>
+      <td>Batch</td><td><input type="text"></td>
+      <td>Year (Academic/Calendar)</td><td><input type="text"></td>
+    </tr>
+  </table>
+
+  <!-- Personal Details -->
+  <table>
+    <tr>
+      <td class="section-title" colspan="4">Personal Details</td>
+      <td class="section-title" rowspan="10" style="text-align:center; width:180px;">
+        <div id="photoBox" style="border:1px solid #000; width:150px; height:200px; 
+             margin:auto; display:flex; align-items:center; justify-content:center; background:#f9f9f9;">
+          <span id="placeholderText">Upload Photo</span>
+          <img id="preview" src="" alt="Photo Preview" 
+               style="max-width:150px; max-height:180px; display:none;">
+        </div>
+        <br>
+        <input type="file" accept="image/*" onchange="previewPhoto(event)">
+      </td>
+    </tr>
+    <tr><td>Full Name of Applicant</td><td colspan="3"><input type="text"></td></tr>
+    <tr><td>Father's Name</td><td><input type="text"></td><td>Mother's Name</td><td><input type="text"></td></tr>
+    <tr><td>Date of Birth</td><td><input type="date"></td><td>Gender</td><td>
+      <select><option>Male</option><option>Female</option><option>Other</option></select>
+    </td></tr>
+    <tr><td>Aadhaar Verified</td><td><select><option>Yes</option><option>No</option></select></td>
+      <td>Aadhaar Number</td><td><input type="text"></td></tr>
+    <tr><td>Nationality</td><td><input type="text"></td><td>Religion</td><td><input type="text"></td></tr>
+    <tr><td>Mobile Number</td><td><input type="text"></td><td>Email Address</td><td><input type="email"></td></tr>
+    <tr><td>Identification Mark 1</td><td><input type="text"></td><td>Identification Mark 2</td><td><input type="text"></td></tr>
+    <tr><td>Marital Status</td><td><input type="text"></td><td>Application Modified</td><td>
+      <select><option>Yes</option><option>No</option></select></td></tr>
+      
+  </table>
+  
+
+  <!-- Present Address -->
+  <table>
+    <tr><td class="section-title" colspan="4">Present Address</td></tr>
+    <tr><td>Address</td><td colspan="3"><input type="text"></td></tr>
+    <tr><td>State/UT</td><td><input type="text"></td><td>District</td><td><input type="text"></td></tr>
+    <tr><td>Village/City/Town</td><td><input type="text"></td><td>Pincode</td><td><input type="text"></td></tr>
+  </table>
+  <table class="no-print"><td>
+<input type="checkbox" id="sameAddress" onchange="copyAddress()"> 
+        <p style="text-align: center;" for="sameAddress">Same as Present Address</p>
+  </td>
+    
+  </table>
+  <!-- Permanent Address -->
+  <table>
+    <tr>
+      <td class="section-title" colspan="4">
+        Permanent Address 
+        
+      </td>
+    </tr>
+    <tr>
+      <td>Address</td><td colspan="3"><input type="text" id="perm_address"></td>
+    </tr>
+    <tr>
+      <td>State/UT</td><td><input type="text" id="perm_state"></td>
+      <td>District</td><td><input type="text" id="perm_district"></td>
+    </tr>
+    <tr>
+      <td>Village/City/Town</td><td><input type="text" id="perm_city"></td>
+      <td>Pincode</td><td><input type="text" id="perm_pincode"></td>
+    </tr>
+  </table>
+
+
+  <!-- Qualification Details -->
+  <table id="qualificationTable">
+    <tr><td class="section-title" colspan="5">Essential Qualification Details</td></tr>
+    <tr>
+      <th>Qualification</th><th>Subject/Group</th><th>Board</th>
+      <th>Certificate No</th><th>Year of Passing</th>
+    </tr>
+    <tr>
+      <td><input type="text"></td>
+      <td><input type="text"></td>
+      <td><input type="text"></td>
+      <td><input type="text"></td>
+      <td><input type="text"></td>
+    </tr>
+  </table>
+  <button type="button" onclick="addRow()">+ Add More Qualification</button>
+
+  <!-- Community Details -->
+  <table>
+    <tr><td class="section-title" colspan="4">Community Details</td></tr>
+    <tr><td>Community</td><td><input type="text"></td><td>Name of the Caste</td><td><input type="text"></td></tr>
+    <tr><td>Certificate No</td><td><input type="text"></td><td>Issuing Authority</td><td><input type="text"></td></tr>
+    <tr><td>Issuing State/UT</td><td><input type="text"></td><td>Date of Issue</td><td><input type="date"></td></tr>
+    <tr><td>Fee Exemption</td><td colspan="3"><select><option>Yes</option><option>No</option></select></td></tr>
+  </table>
+
+  <!-- Study Centre Details -->
+  <table>
+    <tr><td class="section-title" colspan="4">Study Centre Details</td></tr>
+    <tr><td>Name of the Centre</td><td><input type="text"></td><td>Centre Code</td><td><input type="text"></td></tr>
+    <tr><td>Location</td><td><input type="text"></td><td>Mobile No</td><td><input type="text"></td></tr>
+    <tr><td>Email ID</td><td colspan="3"><input type="email"></td></tr>
+  </table>
+
+  <!-- Payment Details -->
+  <table>
+    <tr><td class="section-title" colspan="4">Payment Details</td></tr>
+    <tr><td>Mode</td><td><input type="text"></td><td>Reference No</td><td><input type="text"></td></tr>
+    <tr><td>Transaction ID</td><td><input type="text"></td><td>Amount</td><td><input type="number"></td></tr>
+    <tr><td>Date</td><td colspan="3"><input type="date"></td></tr>
+  </table>
+
+  <!-- Declaration -->
+  <p><b>Declaration:</b><br>
+  I solemnly declare that all the particulars given in this application form are true, complete, and correct to the best of my knowledge and belief. I understand that any false information or misrepresentation may lead to rejection of my application or termination of my candidature.</p>
+  <p><b>Place:</b> <input type="text"> &nbsp;&nbsp;&nbsp; <b>Date:</b> <input type="date"></p>
+
+  <!-- Signature Section -->
+  <table style="width:100%; border:0; margin-top:30px;">
+    <tr>
+      <!-- Applicant Signature Upload -->
+      <td style="text-align:right; width:50%; border:0;">
+        <div id="signBox" style="border:1px solid #000; width:200px; height:80px; 
+             margin-left:auto; display:flex; align-items:center; justify-content:center; background:#f9f9f9;">
+          <span id="signPlaceholder">Upload Signature</span>
+          <img id="signPreview" src="" alt="Signature Preview" 
+               style="max-width:200px; max-height:80px; display:none;">
+        </div>
+        <br>
+        <input type="file" accept="image/*" style="width:20%" onchange="previewSign(event)">
+        <p><b>Signature of Applicant</b></p>
+      </td>
+
+     
+    </tr>
+  </table>
+  <table>
+     <!-- Admin Officer Signature Placeholder -->
+      <td style="text-align:right; width:50%; border:0;">
+        <br>
+        <p><b>Signature of ADMIN OFFICER (CDOE)</b></p>
+      </td>
+  </table>
+
+</div>
+
+<!-- Print Button -->
+<button onclick="window.print()">📄 Download as PDF</button>
+
+<script>
+  function addRow() {
+    let table = document.getElementById("qualificationTable");
+    let row = table.insertRow(-1);
+    for (let i = 0; i < 5; i++) {
+      let cell = row.insertCell(i);
+      let input = document.createElement("input");
+      input.type = "text";
+      input.style.width = "95%";
+      cell.appendChild(input);
+    }
+  }
+
+  function previewPhoto(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById("preview").src = e.target.result;
+        document.getElementById("preview").style.display = "block";
+        document.getElementById("placeholderText").style.display = "none";
+      }
+      reader.readAsDataURL(file);
+    }
+  }
+
+  function previewSign(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById("signPreview").src = e.target.result;
+        document.getElementById("signPreview").style.display = "block";
+        document.getElementById("signPlaceholder").style.display = "none";
+      }
+      reader.readAsDataURL(file);
+    }
+  }
+    function copyAddress() {
+    let checked = document.getElementById("sameAddress").checked;
+
+    let present = {
+      address: document.querySelector("input[id^='present_address']") || document.querySelectorAll("table")[3].rows[1].cells[1].querySelector("input"),
+      state: document.querySelectorAll("table")[3].rows[2].cells[1].querySelector("input"),
+      district: document.querySelectorAll("table")[3].rows[2].cells[3].querySelector("input"),
+      city: document.querySelectorAll("table")[3].rows[3].cells[1].querySelector("input"),
+      pincode: document.querySelectorAll("table")[3].rows[3].cells[3].querySelector("input")
+    };
+
+    let permanent = {
+      address: document.getElementById("perm_address"),
+      state: document.getElementById("perm_state"),
+      district: document.getElementById("perm_district"),
+      city: document.getElementById("perm_city"),
+      pincode: document.getElementById("perm_pincode")
+    };
+
+    if (checked) {
+      permanent.address.value = present.address.value;
+      permanent.state.value = present.state.value;
+      permanent.district.value = present.district.value;
+      permanent.city.value = present.city.value;
+      permanent.pincode.value = present.pincode.value;
+
+      // make read-only
+      for (let key in permanent) permanent[key].setAttribute("readonly", true);
+    } else {
+      // make editable again
+      for (let key in permanent) permanent[key].removeAttribute("readonly");
+    }
+  }
+
+</script>
+
+</body>
+</html>
