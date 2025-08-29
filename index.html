@@ -9,7 +9,7 @@
     td, th { border: 1px solid #000; padding: 8px; vertical-align: top; }
     h2 { text-align: center; margin-bottom: 5px; }
     .section-title { background-color: #f2f2f2; font-weight: bold; text-align: left; }
-    input, select { width: 95%; padding: 5px; border: 1px solid #000; }
+    input, select, textarea { width: 95%; padding: 5px; border: 1px solid #000; box-sizing: border-box; resize: none; }
     button { padding: 7px 12px; margin-top: 10px; cursor: pointer; }
     .textContainer { width:100%; text-align: center; }
     .textContainer h2{ font-size: 24px; }
@@ -21,11 +21,22 @@
         margin: 10mm;
       }
       body { margin: 0; }
-      input, select { 
+      input, select, textarea { 
         border: none !important; 
         padding: 0; 
         background: transparent; 
         width: auto; 
+      }
+      textarea {
+        overflow: visible !important;
+        height: auto !important;
+        min-height: unset !important;
+        resize: none !important;
+        box-shadow: none !important;
+        scrollbar-width: none; /* Firefox */
+      }
+      textarea::-webkit-scrollbar {
+        display: none; /* Chrome, Safari */
       }
       input[type="file"], button { display: none !important; }
       .no-print { display: none !important; }
@@ -97,7 +108,7 @@
       <td>Aadhaar Number</td><td><input type="text"></td></tr>
     <tr><td>Nationality</td><td><input type="text"></td><td>Religion</td><td><input type="text"></td></tr>
     <tr><td>Mobile Number</td><td><input type="text"></td><td>Email Address</td><td><input type="email"></td></tr>
-    <tr><td>Identification Mark 1</td><td><input type="text"></td><td>Identification Mark 2</td><td><input type="text"></td></tr>
+    <tr><td>Identification Mark 1</td><td><textarea oninput="autoResize(this)" style="width:95%; min-height:30px;"></textarea></td><td>Identification Mark 2</td><td><textarea oninput="autoResize(this)" style="width:95%; min-height:30px;"></textarea></td></tr>
     <tr><td>Marital Status</td><td><input type="text"></td><td>Application Modified</td><td>
       <select><option>Yes</option><option>No</option></select></td></tr>
   </table>
@@ -105,7 +116,9 @@
   <!-- Present Address -->
   <table>
     <tr><td class="section-title" colspan="4">Present Address</td></tr>
-    <tr><td>Address</td><td colspan="3"><input type="text"></td></tr>
+    <tr><td>Address</td><td colspan="3">
+      <textarea oninput="autoResize(this)" style="width:95%; min-height:30px;"></textarea>
+    </td></tr>
     <tr><td>State/UT</td><td><input type="text"></td><td>District</td><td><input type="text"></td></tr>
     <tr><td>Village/City/Town</td><td><input type="text"></td><td>Pincode</td><td><input type="text"></td></tr>
   </table>
@@ -117,7 +130,9 @@
   <!-- Permanent Address -->
   <table>
     <tr><td class="section-title" colspan="4">Permanent Address</td></tr>
-    <tr><td>Address</td><td colspan="3"><input type="text" id="perm_address"></td></tr>
+    <tr><td>Address</td><td colspan="3">
+      <textarea id="perm_address" oninput="autoResize(this)" style="width:95%; min-height:30px;"></textarea>
+    </td></tr>
     <tr><td>State/UT</td><td><input type="text" id="perm_state"></td>
         <td>District</td><td><input type="text" id="perm_district"></td></tr>
     <tr><td>Village/City/Town</td><td><input type="text" id="perm_city"></td>
@@ -148,7 +163,10 @@
   <table>
     <tr><td class="section-title" colspan="4">Community Details</td></tr>
     <tr><td>Community</td><td><input type="text"></td><td>Name of the Caste</td><td><input type="text"></td></tr>
-    <tr><td>Certificate No</td><td><input type="text"></td><td>Issuing Authority</td><td><input type="text"></td></tr>
+    <tr><td>Certificate No</td><td><input type="text"></td>
+        <td>Issuing Authority</td><td>
+          <textarea oninput="autoResize(this)" style="width:95%; min-height:30px;"></textarea>
+        </td></tr>
     <tr><td>Issuing State/UT</td><td><input type="text"></td><td>Date of Issue</td><td><input type="date"></td></tr>
     <tr><td>Fee Exemption</td><td colspan="3"><select><option>Yes</option><option>No</option></select></td></tr>
   </table>
@@ -156,9 +174,11 @@
   <!-- Study Centre Details -->
   <table>
     <tr><td class="section-title" colspan="4">Study Centre Details</td></tr>
-    <tr><td>Name of the Centre</td><td><input type="text"></td><td>Centre Code</td><td><input type="text"></td></tr>
-    <tr><td>Location</td><td><input type="text"></td><td>Mobile No</td><td><input type="text"></td></tr>
-    <tr><td>Email ID</td><td colspan="3"><input type="email"></td></tr>
+    <tr><td>Name of the Centre</td><td colspan="3">
+      <textarea oninput="autoResize(this)" style="width:95%; min-height:30px;"></textarea>
+    </td></tr>
+    <tr><td>Centre Code</td><td><input type="text"></td><td>Location</td><td><input type="text"></td></tr>
+    <tr><td>Mobile No</td><td><input type="text"></td><td>Email ID</td><td colspan="3"><input type="email"></td></tr>
   </table>
 
   <!-- Payment Details -->
@@ -254,7 +274,7 @@
   function copyAddress() {
     let checked = document.getElementById("sameAddress").checked;
     let present = {
-      address: document.querySelectorAll("table")[3].rows[1].cells[1].querySelector("input"),
+      address: document.querySelectorAll("table")[3].rows[1].cells[1].querySelector("textarea"),
       state: document.querySelectorAll("table")[3].rows[2].cells[1].querySelector("input"),
       district: document.querySelectorAll("table")[3].rows[2].cells[3].querySelector("input"),
       city: document.querySelectorAll("table")[3].rows[3].cells[1].querySelector("input"),
@@ -274,6 +294,17 @@
       for (let key in permanent) permanent[key].removeAttribute("readonly");
     }
   }
+
+  // Auto resize function for textarea
+  function autoResize(textarea) {
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
+  }
+
+  // Resize all textareas on page load
+  window.onload = function() {
+    document.querySelectorAll("textarea").forEach(autoResize);
+  };
 </script>
 
 </body>
