@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Application Form</title>
-  <style>
+    <style>
     body { font-family: Arial, sans-serif; margin: 20px; }
     table { border-collapse: collapse; width: 100%; margin-bottom: 20px; page-break-inside: avoid; }
     td, th { border: 1px solid #000; padding: 8px; vertical-align: top; }
@@ -21,11 +21,27 @@
         margin: 10mm;
       }
       body { margin: 0; }
+
+      /* Labels Bold */
+      td, th {
+        font-weight: 600; /* Medium Bold for Labels */
+      }
+
+  .section-title {
+  background-color: #f2f2f2 !important;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  font-weight: 700;
+}
+
+      /* Input, Textarea, and Select Text Lighter */
       input, select, textarea { 
         border: none !important; 
         padding: 0; 
         background: transparent; 
         width: auto; 
+        font-weight: 300; /* Lighter text */
+        color: #000;
       }
       textarea {
         overflow: visible !important;
@@ -33,10 +49,10 @@
         min-height: unset !important;
         resize: none !important;
         box-shadow: none !important;
-        scrollbar-width: none; /* Firefox */
+        scrollbar-width: none;
       }
       textarea::-webkit-scrollbar {
-        display: none; /* Chrome, Safari */
+        display: none;
       }
       input[type="file"], button { display: none !important; }
       .no-print { display: none !important; }
@@ -107,7 +123,7 @@
     <tr><td>Aadhaar Verified</td><td><select><option>Yes</option><option>No</option></select></td>
       <td>Aadhaar Number</td><td><input type="text"></td></tr>
     <tr><td>Nationality</td><td><input type="text"></td><td>Religion</td><td><input type="text"></td></tr>
-    <tr><td>Mobile Number</td><td><input type="text"></td><td>Email Address</td><td><input type="email"></td></tr>
+    <tr><td>Mobile Number</td><td><input type="text"></td><td>Email Address</td><td><textarea oninput="autoResize(this)" style="width:95%; min-height:30px;"></textarea></td></tr>
     <tr><td>Identification Mark 1</td><td><textarea oninput="autoResize(this)" style="width:95%; min-height:30px;"></textarea></td><td>Identification Mark 2</td><td><textarea oninput="autoResize(this)" style="width:95%; min-height:30px;"></textarea></td></tr>
     <tr><td>Marital Status</td><td><input type="text"></td><td>Application Modified</td><td>
       <select><option>Yes</option><option>No</option></select></td></tr>
@@ -178,7 +194,7 @@
       <textarea oninput="autoResize(this)" style="width:95%; min-height:30px;"></textarea>
     </td></tr>
     <tr><td>Centre Code</td><td><input type="text"></td><td>Location</td><td><input type="text"></td></tr>
-    <tr><td>Mobile No</td><td><input type="text"></td><td>Email ID</td><td colspan="3"><input type="email"></td></tr>
+    <tr><td>Mobile No</td><td><input type="text"></td><td>Email ID</td><td colspan="3"><textarea oninput="autoResize(this)" style="width:95%; min-height:30px;"></textarea></td></tr>
   </table>
 
   <!-- Payment Details -->
