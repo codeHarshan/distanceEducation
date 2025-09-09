@@ -237,6 +237,7 @@
 
 <!-- Print Button -->
 <button onclick="window.print()">📄 Download as PDF</button>
+<button type="button" onclick="clearSavedData()" class="no-print">🗑 Clear Saved Data</button>
 
 <script>
   function addRow() {
@@ -321,6 +322,73 @@
   window.onload = function() {
     document.querySelectorAll("textarea").forEach(autoResize);
   };
+
+ /* -------- Auto-Save & Restore -------- */
+function saveFormData() {
+  let formData = {};
+  document.querySelectorAll("input, textarea, select").forEach((el, idx) => {
+    if (el.type === "file") return; // skip file uploads
+    formData[el.id || "field_"+idx] = el.value;
+  });
+
+  // Save qualification rows separately
+  let qualifications = [];
+  document.querySelectorAll("#qualificationTable tr").forEach((row, i) => {
+    if (i === 0) return; // skip header
+    let inputs = row.querySelectorAll("input");
+    if (inputs.length) {
+      qualifications.push([...inputs].map(inp => inp.value));
+    }
+  });
+  formData["qualifications"] = qualifications;
+
+  localStorage.setItem("applicationFormData", JSON.stringify(formData));
+}
+
+function loadFormData() {
+  let savedData = localStorage.getItem("applicationFormData");
+  if (!savedData) return;
+  savedData = JSON.parse(savedData);
+
+  document.querySelectorAll("input, textarea, select").forEach((el, idx) => {
+    if (el.type === "file") return;
+    let key = el.id || "field_"+idx;
+    if (savedData[key] !== undefined) el.value = savedData[key];
+  });
+
+  // Restore qualification rows
+  if (savedData["qualifications"]) {
+    // remove default row first
+    let table = document.getElementById("qualificationTable");
+    while (table.rows.length > 2) {
+      table.deleteRow(-1);
+    }
+    // re-add from saved
+    savedData["qualifications"].forEach(row => addRow(row));
+  }
+}
+
+function clearSavedData() {
+  localStorage.removeItem("applicationFormData");
+  alert("Saved data cleared!");
+  location.reload();
+}
+
+/* -------- Init -------- */
+document.addEventListener("input", saveFormData);
+window.onload = function() {
+  loadFormData();
+  document.querySelectorAll("textarea").forEach(t => {
+    autoResize(t);
+    t.addEventListener("input", () => autoResize(t));
+  });
+  document.getElementById("sameAddress").addEventListener("change", function() {
+    if (this.checked) {
+      document.getElementById("permanentAddress").value = document.getElementById("presentAddress").value;
+      saveFormData();
+    }
+  });
+};
 </script>
 
 </body>
