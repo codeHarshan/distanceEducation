@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AKS Educational Consultancy</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f8ff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .home-container {
+            text-align: center;
+            padding: 30px 20px;
+            width: 100%;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            border: 2px dashed #1e4d8c;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 25px;
+            color: #1e4d8c;
+            font-size: 15px;
+            background: white;
+        }
+
+        h1 {
+            color: #1e4d8c;
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 35px;
+            letter-spacing: 1px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: #1e4d8c;
+            color: white;
+            border: 2px solid #1e4d8c;
+        }
+
+        .btn-primary:hover {
+            background: #14345f;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #1e4d8c;
+            border: 2px solid #1e4d8c;
+        }
+
+        .btn-secondary:hover {
+            background: #1e4d8c;
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 25px;
+            }
+
+            .button-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 220px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="home-container">
+
+        <!-- Logo Section -->
+        <div class="logo">
+            <img src="IMG_1729.PNG" alt="AKS Logo" class="logo">
+        </div>
+
+        <!-- Main Heading -->
+        <h1>AKS EDUCATIONAL CONSULTANCY</h1>
+
+        <!-- Buttons -->
+        <div class="button-container">
+            <a href="ANNA.html" class="btn btn-primary">BHARATHIDASAN</a>
+
+            <a href="AGP.html" class="btn btn-secondary">ALAGAPPA</a>
+        </div>
+    </div>
+
+</body>
+</html>
